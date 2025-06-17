@@ -165,8 +165,9 @@ set fontpath
 set psdir
 set fit brief errorvariables nocovariancevariables errorscaling prescale nowrap v5
 GNUTERM = "wxt"
-## Last datafile plotted: "flog.tsv"
-plot "flog.tsv" using 4 w l, "flog.tsv" using 5 w l, "flog.tsv" using 6 w l
+# Last datafile plotted: "flog.tsv"
+# Columns(indexing starts at 1) are 1:error, 2:avg_error, 3:vL, 4:vR, 5:layer1WeightDist, 6:layer2WeightDist, 7:layer3WeightDist
+plot "flog.tsv" using 5 w l, "flog.tsv" using 6 w l, "flog.tsv" using 7 w l
 #    EOF
 pause(-1)
 
