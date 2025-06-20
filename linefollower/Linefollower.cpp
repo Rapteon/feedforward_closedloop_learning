@@ -173,9 +173,11 @@ public:
 		if (step>MAX_STEPS) {
 			qApp->quit();
 		}
-		
+
+		// Logs error, avg_error, absError, vL, vR, layer1WeightDist, ..., layerNWeightDist
 		fprintf(flog,"%e\t",error);
 		fprintf(flog,"%e\t",avgError);
+		fprintf(flog,"%e\t",absError);
 		fprintf(flog,"%e\t%e",vL,vR);
 		for(int i=0;i<fcl->getNumLayers();i++) {
 			fprintf(flog,"\t%e",fcl->getLayer(i)->getWeightDistanceFromInitialWeights());
