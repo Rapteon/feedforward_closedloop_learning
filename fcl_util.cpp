@@ -28,7 +28,6 @@ FeedforwardClosedloopLearningWithFilterbank::FeedforwardClosedloopLearningWithFi
 	filterbankOutputs.resize(num_of_inputs * num_filtersInput);
 
 	inputlog = fopen("inputlog.tsv", "wt");
-	errorlog = fopen("errorlog.tsv", "wt");
 
 	layer_1_log = fopen("layer-1-log.tsv", "wt");
 	layer_2_log = fopen("layer-2-log.tsv", "wt");
@@ -79,7 +78,6 @@ FeedforwardClosedloopLearningWithFilterbank::~FeedforwardClosedloopLearningWithF
 	}
 	delete[] bandpass;
 	fclose(inputlog);
-	fclose(errorlog);
 	fclose(layer_1_log);
 	fclose(layer_2_log);
 	fclose(layer_3_log);
@@ -108,7 +106,7 @@ void FeedforwardClosedloopLearningWithFilterbank::doStep(const std::vector<doubl
 		#endif
 		throw tmp;
 	}
-	logState(filterbankOutputs, error);
+	logState(filterbankOutputs);
 	auto layer1 = getLayer(0);
 	auto layer2 = getLayer(1);
 	auto layer3 = getLayer(2);

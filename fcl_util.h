@@ -64,19 +64,13 @@ public:
 	/**
 	 * Logs state of the network into the file
 	 */
-	void logState(const std::vector<double> &input, const std::vector<double> &error) {
+	void logState(const std::vector<double> &input) {
 		for (unsigned int i = 0; i < input.size()-1; ++i) {
 			fprintf(inputlog, "%e\t", input[i]);
 			fflush(inputlog);
 		}
 		fprintf(inputlog, "%e\n", input[input.size()-1]);
 		fflush(inputlog);
-		for (unsigned int i = 0; i < error.size()-1; ++i) {
-			fprintf(errorlog, "%e\t", error[i]);
-			fflush(errorlog);
-		}
-		fprintf(errorlog, "%e\n", error[error.size()-1]);
-		fflush(errorlog);
 	}
 
 	void logState(FCLLayer* layer, FILE* log_file) {
@@ -122,11 +116,11 @@ public:
 
 	void logState() {
 		auto layer1 = getLayer(0);
-		fprintf(layer_props, "Layer-1: %d neurons %d inputs %d errors", layer1->getNneurons(), layer1->getNinputs(), layer1->getNinputs());
+		fprintf(layer_props, "Layer-1: %d neurons %d inputs %d errors\n", layer1->getNneurons(), layer1->getNinputs(), layer1->getNinputs());
 		auto layer2 = getLayer(1);
-		fprintf(layer_props, "Layer-2: %d neurons %d inputs %d errors", layer2->getNneurons(), layer2->getNinputs(), layer2->getNinputs());
+		fprintf(layer_props, "Layer-2: %d neurons %d inputs %d errors\n", layer2->getNneurons(), layer2->getNinputs(), layer2->getNinputs());
 		auto layer3 = getLayer(2);
-		fprintf(layer_props, "Layer-3: %d neurons %d inputs %d errors", layer3->getNneurons(), layer3->getNinputs(), layer3->getNinputs());
+		fprintf(layer_props, "Layer-3: %d neurons %d inputs %d errors\n", layer3->getNneurons(), layer3->getNinputs(), layer3->getNinputs());
 		fflush(layer_props);
 	}
 private:
@@ -137,7 +131,6 @@ private:
 	int nFiltersPerInput = 0;
 	int nInputs = 0;
 	FILE* inputlog;
-	FILE* errorlog;
 	FILE* layer_1_log;
 	FILE* layer_2_log;
 	FILE* layer_3_log;
