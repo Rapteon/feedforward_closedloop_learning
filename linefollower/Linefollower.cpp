@@ -28,6 +28,9 @@ protected:
 
 	FILE* fcoord = NULL;
 	
+	// Log file storing when the robot is turning.
+	FILE* turnslog = NULL;
+
 	int learningOff = 1;
 
 	long step = 0;
@@ -44,6 +47,7 @@ public:
 
 		flog = fopen("flog.tsv","wt");
 		fcoord = fopen("coord.tsv","wt");
+		turnslog = fopen("turnslog.tsv", "wt");
 
 		// setting up the robot
 		racer = new Racer(nInputs);
@@ -76,6 +80,7 @@ public:
 	~LineFollower() {
 		fclose(flog);
 		fclose(fcoord);
+		fclose(turnslog);
 		delete fcl;
 	}
 
@@ -114,7 +119,12 @@ public:
 		if (racer->pos.x < border) {
 			racer->angle = 0;
 			trackCompletedCtr = STEPS_OFF_TRACK;
+			fprintf(turnslog, "%d\n", 1); // log 1 when turning.
 		}
+		else {
+			fprintf(turnslog, "%d\n", 0); // log 0 when on track or not turning.
+		}
+		fflush(turnslog);
 		trackCompletedCtr--;
 		if (trackCompletedCtr < 1) {
 			// been off the track for a long time!
