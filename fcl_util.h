@@ -7,6 +7,8 @@
 #include "fcl/bandpass.h"
 #include "fcl.h"
 
+#include "logger/network_logger.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -61,68 +63,6 @@ public:
 		return nFiltersPerInput;
 	}
 
-	/**
-	 * Logs state of the network into the file
-	 */
-	void logState(const std::vector<double> &input) {
-		for (unsigned int i = 0; i < input.size()-1; ++i) {
-			fprintf(inputlog, "%e\t", input[i]);
-			fflush(inputlog);
-		}
-		fprintf(inputlog, "%e\n", input[input.size()-1]);
-		fflush(inputlog);
-	}
-
-	void logState(FCLLayer* layer, FILE* log_file) {
-		// Printing each neuron's inputs
-		for (int i {0}; i < layer->getNneurons(); ++i) {
-			auto neuron = layer->getNeuron(i);
-			for (int j {0}; j < neuron->getNinputs(); ++j) {
-				fprintf(log_file, "%e\t", neuron->getInput(j));
-				fflush(log_file);
-			}
-		}
-		// Printing errors of each neuron
-		for (int i {0}; i < layer->getNneurons(); ++i) {
-			auto neuron = layer->getNeuron(i);
-			fprintf(log_file, "%e\t", neuron->getError());
-			fflush(log_file);
-		}
-
-		// Printing weights between each input of each neuron
-		for (int i {0}; i < layer->getNneurons(); ++i) {
-			auto neuron = layer->getNeuron(i);
-			for (int j {0}; j < neuron->getNinputs(); ++j) {
-				fprintf(log_file, "%e\t", neuron->getWeight(j));
-				fflush(log_file);
-			}
-		}
-		// Printing bias weights of each neuron
-		for (int i {0}; i < layer->getNneurons(); ++i) {
-			auto neuron = layer->getNeuron(i);
-			fprintf(log_file, "%e\t", neuron->getBiasWeight());
-			fflush(log_file);
-		}
-		
-		// Printing outputs of each neuron
-		for (int i {0}; i < layer->getNneurons(); ++i) {
-			auto neuron = layer->getNeuron(i);
-			fprintf(log_file, "%e\t", neuron->getOutput());
-			fflush(log_file);
-		}
-
-		fprintf(log_file, "\n");
-	}
-
-	void logState() {
-		auto layer1 = getLayer(0);
-		fprintf(layer_props, "%d\t%d\n", layer1->getNneurons(), layer1->getNinputs());
-		auto layer2 = getLayer(1);
-		fprintf(layer_props, "%d\t%d\n", layer2->getNneurons(), layer2->getNinputs());
-		auto layer3 = getLayer(2);
-		fprintf(layer_props, "%d\t%d\n", layer3->getNneurons(), layer3->getNinputs());
-		fflush(layer_props);
-	}
 private:
 	const double dampingCoeff = 0.51;
 	FCLBandpass ***bandpass = 0;
@@ -130,11 +70,7 @@ private:
 	std::vector<double> filterbankOutputs;
 	int nFiltersPerInput = 0;
 	int nInputs = 0;
-	FILE* inputlog;
-	FILE* layer_1_log;
-	FILE* layer_2_log;
-	FILE* layer_3_log;
-	FILE* layer_props;
+	NetworkLogger* networkLogger = NULL;
 };
 
 #endif
