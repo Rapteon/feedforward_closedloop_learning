@@ -10,7 +10,7 @@ class NetworkLogger : public Logger
 public:
 	NetworkLogger(FeedforwardClosedloopLearning *network);
 	void logLayers();
-	void log()
+	void log() override
 	{
 		for (int i{0}; i < layerCount; ++i)
 		{

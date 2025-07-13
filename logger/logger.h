@@ -7,7 +7,7 @@ class Logger
 {
 public:
     Logger(const char *fileName);
-    void log();
+    virtual void log();
 
 protected:
     FILE *logFile;
