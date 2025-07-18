@@ -55,6 +55,12 @@ of learning and it slowly decays to zero which is logged here:
 The script `plot_abs_error.py` plots the error signal while
 the line follower is running.
 
+### turnslog.tsv
+
+This file records the steps at which the robot was turned around manually.
+If the robot was turned around at a specific step, the corresponding record
+has a value of 1.
+
 ### Weights
 
 Run the script `plotweights.py` which plots the weights while
