@@ -155,13 +155,9 @@ public:
 		}
 		// !!!!
 		fcl->doStep(pred,err);
-		float vL = (float)((fcl->getOutputLayer()->getNeuron(0)->getOutput())*50 +
-				   (fcl->getOutputLayer()->getNeuron(1)->getOutput())*10 +
-				   (fcl->getOutputLayer()->getNeuron(2)->getOutput())*2);
-		float vR = (float)((fcl->getOutputLayer()->getNeuron(3)->getOutput())*50 +
-				   (fcl->getOutputLayer()->getNeuron(4)->getOutput())*10 +
-				   (fcl->getOutputLayer()->getNeuron(5)->getOutput())*2);
-		
+		float vL = (float)((fcl->getOutputLayer()->getNeuron(0)->getOutput())*50);
+		float vR = (float)((fcl->getOutputLayer()->getNeuron(1)->getOutput())*50);
+
 		double erroramp = error * fbgain;
 		fprintf(stderr,"%e ",erroramp);
 		fprintf(stderr,"%e ",vL);

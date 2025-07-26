@@ -4,13 +4,13 @@
 const double speed = 90;
 const double fbgain = 300;
 
-const int nInputs = 30;
+const int nInputs = 14;
 
 // Number of layers of neurons in total
 static constexpr int nLayers = 3;
 
 // The number of neurons in every layer
-const std::vector<int> nNeuronsInLayers = {9,6,6};
+const std::vector<int> nNeuronsInLayers = {4,2,2};
 
 // We set nFilters in the input
 const int nFiltersInput = 10;
